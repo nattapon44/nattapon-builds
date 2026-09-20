@@ -218,3 +218,52 @@ document.addEventListener('visibilitychange', () => {
 syncPreferences();
 initAtmospheres({ motionQuery, compactQuery });
 document.body.classList.add('js-ready');
+
+// Native modal semantics provide focus containment and Escape dismissal.
+const supportDialog = $('#supportDialog');
+const supportOpen = $('#supportOpen');
+const supportClose = $('.support-close', supportDialog);
+let supportScrollY = 0;
+let supportBodyStyle = null;
+supportOpen.addEventListener('click', () => {
+  supportScrollY = scrollY;
+  supportBodyStyle = document.body.getAttribute('style');
+  const scrollbarWidth = innerWidth - root.clientWidth;
+  const paddingRight = parseFloat(getComputedStyle(document.body).paddingRight);
+  Object.assign(document.body.style, {
+    position: 'fixed', top: `-${supportScrollY}px`, width: '100%',
+    overflow: 'hidden', paddingRight: `${paddingRight + scrollbarWidth}px`
+  });
+  supportDialog.showModal();
+  supportDialog.scrollTop = 0;
+  supportClose.focus({ preventScroll: true });
+});
+supportClose.addEventListener('click', () => supportDialog.close());
+// The close control is the dialog's only interactive element.
+supportDialog.addEventListener('keydown', event => {
+  if (event.key === 'Tab') {
+    event.preventDefault();
+    supportClose.focus({ preventScroll: true });
+  }
+});
+let supportBackdropPress = false;
+const outsideSupport = event => {
+  const rect = supportDialog.getBoundingClientRect();
+  return event.clientX < rect.left || event.clientX > rect.right ||
+    event.clientY < rect.top || event.clientY > rect.bottom;
+};
+supportDialog.addEventListener('pointerdown', event => {
+  supportBackdropPress = event.target === supportDialog && outsideSupport(event);
+});
+supportDialog.addEventListener('click', event => {
+  if (supportBackdropPress && event.target === supportDialog && outsideSupport(event)) supportDialog.close();
+  supportBackdropPress = false;
+});
+supportDialog.addEventListener('close', () => {
+  if (supportBodyStyle === null) document.body.removeAttribute('style');
+  else document.body.setAttribute('style', supportBodyStyle);
+  window.scrollTo({ top: supportScrollY, behavior: 'instant' });
+  supportOpen.focus({ preventScroll: true });
+  measureNeeded = true;
+  queueScroll();
+});

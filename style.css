@@ -477,3 +477,32 @@ body.page-hidden *, body.page-hidden *::before, body.page-hidden *::after { anim
   .hero-orb, .btn, .text-btn, .fun-project a, .closing-actions a { translate: none !important; }
   .timeline div::before { transform: none; }
 }
+
+/* v1.1 additions reuse the research and closing chapter surfaces. */
+.hero-attribution { max-width: 42rem; color: #a9c9df; font-size: .85rem; line-height: 1.6; }
+.research-support { position: relative; z-index: 4; max-width: 900px; margin-top: clamp(48px,8vh,96px); }
+.research-support h3 { font-size: clamp(1.8rem,3.2vw,3rem); }
+.build-support { position: relative; z-index: 4; width: 100%; max-width: 680px; margin: 40px auto 0; padding: 28px clamp(16px,4vw,36px); border: 1px solid rgba(158,216,255,.25); border-radius: 16px; background: rgba(7,17,31,.45); }
+.build-support h2 { margin: .4em 0; font-size: clamp(1.6rem,4vw,2.6rem); line-height: 1.15; letter-spacing: -.03em; }
+.build-support > p { color: #b5c8da; line-height: 1.7; }
+
+/* Static QR support, using the research chapter's quiet cream surface. */
+.support-open { font: inherit; cursor: pointer; }
+.support-dialog { --focus-color: #665020; width: min(560px,calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 1px solid #bbb4a5; border-radius: 16px; background: #efece4; color: #171717; overflow-y: auto; overscroll-behavior: contain; }
+.support-dialog::backdrop { background: rgba(3,6,11,.78); }
+.support-panel { padding: clamp(20px,5vw,36px); }
+.support-close { display: block; margin: -8px -8px 12px auto; min-height: 44px; padding: 8px 12px; border: 1px solid #bbb4a5; border-radius: 8px; background: #efece4; color: #171717; font: inherit; cursor: pointer; position: sticky; top: 8px; z-index: 1; }
+.support-dialog .paper-type { color: #665731; font-size: .67rem; letter-spacing: .13em; }
+.support-dialog h2 { margin: .4em 0; font-family: Georgia,serif; font-weight: 400; font-size: clamp(1.9rem,5vw,2.7rem); line-height: 1.12; }
+.support-dialog p, .support-dialog li { line-height: 1.65; }
+.support-dialog ul { padding-left: 20px; color: #52504b; }
+.support-qr { margin: 24px 0; text-align: center; }
+.support-qr img { display: block; width: min(100%,300px); height: auto; margin: 0 auto; background: white; }
+.support-qr figcaption { margin-top: 12px; font-size: .8rem; line-height: 1.5; color: #52504b; }
+.support-thanks { border-top: 1px solid #bbb4a5; padding-top: 16px; margin-bottom: 0; }
+@media (min-width: 901px) {
+  .support-dialog { width: min(92vw,780px); }
+  .support-panel { padding: 40px; }
+  .support-qr { margin: 28px 0; }
+  .support-qr img { width: min(100%,320px); }
+}
