@@ -1,61 +1,114 @@
 # NATTAPON BUILDS backlog
 
-## Coffee Support Experience — COMPLETE
+_Last updated: 2026-09-27_
 
-Implemented locally for production review. The accessible Coffee Support dialog inherits the portfolio's persisted TH/EN language. Four tiers use the unchanged `assets/support/coffee-50.png`, `coffee-100.png`, `coffee-200.png`, and `coffee-custom.png` cards. The support acknowledgement triggers a restrained coffee celebration and thank-you message; reduced motion uses a small fade-only acknowledgement. This remains client-side: no payment API, verification, backend, or transaction records. The user confirmed successful real Thai banking-app scans for all four original QR cards. Nothing committed, pushed, or deployed.
+## v1.1 — PRODUCTION COMPLETE
 
-International/card support via Stripe — FUTURE / DEFERRED.
+NATTAPON BUILDS v1.1 is released to production at:
+https://nattapon-builds.pages.dev/
 
-## Applied Statistics & Research Support — Dedicated Service Page
+### Applied Statistics & Research Support — COMPLETE / PRODUCTION
 
-**DESIGN APPROVED**  
-**IMPLEMENTED LOCALLY — NOT DEPLOYED**
+Dedicated service page is live at `/research-support/`.
 
-Implemented at `/research-support/` with shared TH/EN preference, packages, comparison, add-ons, workflow, service notes, and visible/copyable existing email contact. The main portfolio CTA now links to this page. Coffee Support Experience is now complete locally; see the status above.
+Implemented:
+- Shared persisted TH/EN preference.
+- BASE / STANDARD / PREMIUM++ packages.
+- Package comparison table.
+- Inferential-statistics add-on examples.
+- SPSS, Microsoft Excel, and Python tool section.
+- Research workflow and service conditions.
+- Visible/copyable contact email.
+- Responsive desktop/tablet/mobile layouts.
+- Reduced-motion support and accessible semantic markup.
+- Page metadata, canonical, Open Graph, structured data, and sitemap entry.
+- Main portfolio Research CTA links to the service page.
 
-### Visual direction
+Approved pricing:
+- BASE: 1,000–1,499 บาท
+- STANDARD: 1,500–1,999 บาท
+- PREMIUM++: 2,000 บาท ++
+- t-test: +300 บาท
+- Chi-square: +300 บาท
+- Correlation: +500 บาท
+- One-way ANOVA: +500 บาท
+- Two-way ANOVA: +700 บาท
+- Multiple Regression: +800–1,000 บาท
 
-Reuse the portfolio identity: warm cream content surfaces, matching dark navy header/footer, subtle gold accents, editorial typography, premium cards, generous whitespace. Abstract/data/research visuals only if needed; no portrait imagery, generic corporate styling, or overly dark full-page treatment.
+### Coffee Support Experience — COMPLETE / PRODUCTION
 
-### Required content
+Implemented:
+- ฿50 / ฿100 / ฿200 / Custom support options.
+- PromptPay QR assets:
+  - assets/support/coffee-50.png
+  - assets/support/coffee-100.png
+  - assets/support/coffee-200.png
+  - assets/support/coffee-custom.png
+- QR assets must remain byte-for-byte unchanged.
+- Modal inherits persisted TH/EN language.
+- All four QR codes were manually tested successfully in a real Thai banking app.
+- “I've supported” acknowledgement.
+- Coffee-cup celebration renders ABOVE the QR/payment card.
+- Celebration does not block interaction.
+- Reduced-motion acknowledgement supported.
+- No backend.
+- No transaction verification.
+- No transaction storage.
+- No subscription / recurring payment.
 
-- Hero: Thai primary heading “บริการวิเคราะห์ข้อมูล” / “แบบสอบถาม”; English line “Applied Statistics & Research Support”; positioning “Data → Analysis → Interpretation → Better decisions”.
-- Packages below are scope-dependent, flexible prices.
+## SEO / GOOGLE SEARCH CONSOLE — FOLLOW-UP IN PROGRESS
 
-| Package | Price | Scope |
-| --- | --- | --- |
-| BASE | 1,000–1,499 บาท | ตรวจสอบและจัดเตรียมข้อมูลเบื้องต้น (Data Cleaning); วิเคราะห์สถิติเชิงพรรณนา; จัดทำตารางผลการวิเคราะห์; สรุปเฉพาะตารางสำคัญ เช่น ข้อมูลทั่วไปของผู้ตอบแบบสอบถาม ระดับความพึงพอใจ ระดับความคิดเห็น และตารางอื่นตามที่ตกลง |
-| STANDARD | 1,500–1,999 บาท | ตรวจสอบและจัดเตรียมข้อมูล (Data Cleaning); วิเคราะห์สถิติเชิงพรรณนาครบทุกหัวข้อ; จัดทำตารางผลการวิเคราะห์; แปลผลและสรุปทุกตาราง พร้อมใช้ประกอบบทที่ 4 |
-| PREMIUM++ | 2,000 บาท ++ | Data Cleaning; descriptive statistics; inferential statistics matched to objectives/hypotheses; analysis tables; interpretation; complete result summaries. Price increases with methods and scope. |
+Current:
+- Search Console property exists.
+- Google verification preserved.
+- robots.txt live.
+- sitemap.xml live.
+- Sitemap contains:
+  - https://nattapon-builds.pages.dev/
+  - https://nattapon-builds.pages.dev/research-support/
+- sitemap.xml opens normally in browser.
+- URL Inspection LIVE TEST can fetch sitemap successfully.
+- Crawl allowed = Yes.
+- Page fetch = Successful.
+- Indexing allowed = Yes.
+- Search Console currently still reports:
+  “Couldn't fetch / Sitemap could not be read”
+- Daily Request Indexing quota was reached during testing.
 
-Example statistical add-ons (not unconditional fixed quotes):
+Next SEO work:
+1. Do NOT modify the sitemap simply because Search Console temporarily reports Couldn't fetch.
+2. Wait for Google to reprocess it.
+3. Recheck Sitemaps and Pages later.
+4. Inspect homepage and /research-support/ after indexing quota resets if necessary.
+5. Use real Search Console query/impression/CTR data before changing titles/descriptions.
+6. Monitor Core Web Vitals, HTTPS, indexing coverage, and crawl errors.
 
-| Method | Additional price |
-| --- | --- |
-| t-test | +300 บาท |
-| Chi-square | +300 บาท |
-| Correlation | +500 บาท |
-| One-way ANOVA | +500 บาท |
-| Two-way ANOVA | +700 บาท |
-| Multiple Regression | +800–1,000 บาท |
+## v1.2 — NEXT PORTFOLIO PHASE
 
-- Tools: SPSS, Microsoft Excel, Python.
-- Suitable for undergraduate/graduate research, government/public-sector research, satisfaction evaluation, and survey research.
-- Strengths: appropriate statistical principles, clear interpretation, usable analysis tables, timely delivery, consultation after delivery.
+Do not perform major visual changes until v1.1 indexing settles.
 
-### Workflow
+Candidate work:
+- Review actual Google Search Console performance data.
+- Improve metadata/snippets only from actual search evidence.
+- Clean up GitHub README/project documentation.
+- Small UX/content polish only when a real gap is identified.
+- Preserve v1.1 visual identity and architecture.
 
-1. **01 ส่งรายละเอียดงาน** — dataset, research objectives, hypotheses if applicable.
-2. **02 ประเมินราคา** — review scope, quote price, estimate turnaround.
-3. **03 ดำเนินการวิเคราะห์** — Data Cleaning and statistical analysis within agreed scope.
-4. **04 ส่งมอบงาน** — analysis tables, interpretation/summaries, consultation as appropriate.
+## FUTURE / DEFERRED
 
-### Conditions and final CTA
+### International / Card Support via Stripe
 
-Explain that prices depend on variable count, dataset size, and complexity; advanced/inferential analysis can cost extra. Analyze data already collected by the researcher. Do not fabricate, manipulate, or distort research data. Work outside agreed scope may require additional pricing.
+Status: DEFERRED.
 
-End with a restrained CTA such as “พร้อมเริ่มต้นวิเคราะห์ข้อมูลของคุณแล้วหรือยัง?”; finalize contact options during implementation.
+PromptPay remains the primary support method.
 
-### Future implementation requirements
+Do not add Stripe code unless this backlog item is explicitly reopened.
 
-Dedicated page linked from the existing research-support section; desktop/tablet/mobile responsiveness; reduced-motion support; accessible semantic markup; page title, meta description, canonical, Open Graph, appropriate structured data, and sitemap entry. Preserve the overall portfolio architecture, existing projects, research publication, and Google verification. Do not implement the page as part of the current support-dialog task.
+Possible future review:
+- Stripe account readiness.
+- Fees / settlement.
+- Hosted Checkout vs Payment Links.
+- Currency/international-card support.
+- Privacy/data handling.
+- Success/cancel state.
+- Backend/webhook necessity.
