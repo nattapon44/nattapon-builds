@@ -33,7 +33,7 @@
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
-  <link rel="stylesheet" href="style.css?v=2.5" />
+  <link rel="stylesheet" href="style.css?v=2.6" />
 
   <script type="application/ld+json">
 {
@@ -193,6 +193,10 @@
       <a href="#future">Future</a>
     </nav>
     <a class="resume-link" href="assets/Nattapon-Surasin-Resume.pdf" target="_blank" rel="noreferrer">Resume ↗</a>
+    <div class="language-switch" role="group" aria-label="Choose language">
+      <button type="button" data-language="th" lang="th" aria-label="ภาษาไทย" aria-pressed="false">TH</button>
+      <button type="button" data-language="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+    </div>
     <details class="mobile-nav">
       <summary>Chapters <span aria-hidden="true">+</span></summary>
       <nav aria-label="Mobile chapters">
@@ -367,10 +371,10 @@
       <article class="research-support paper reveal" aria-labelledby="research-support-title">
         <p class="paper-type">FROM QUESTIONS TO EVIDENCE</p>
         <h3 id="research-support-title">Applied Statistics &amp; Research Support</h3>
-        <p>Have a research question or a dataset to make sense of? Let’s discuss support with data preparation, exploratory analysis, statistical methods, and clear interpretation of results.</p>
+        <p>Have a research question or dataset to make sense of? I can help with data preparation, exploratory analysis, statistical methods, and clear interpretation of results.</p>
         <div class="paper-meta"><span>Data preparation</span><span>Statistical analysis</span><span>Visualization &amp; interpretation</span></div>
         <p>Grounded in my statistics and data science background, with the approach shaped around your question, data, and research context.</p>
-        <p class="doi"><a href="mailto:nattapon.su44@gmail.com">Discuss your research ↗</a></p>
+        <div class="project-actions"><a class="btn research-service-cta" href="/research-support/">Explore Research Support ↗</a></div>
       </article>
     </section>
 
@@ -425,17 +429,42 @@
     <div class="support-panel">
       <button class="support-close" type="button" aria-label="Close support dialog" autofocus>Close ×</button>
       <p class="paper-type">SUPPORT THE NEXT BUILD</p>
-      <h2 id="support-title">Support future experiments.</h2>
-      <p id="support-description">If something here helped you, you can support the next build directly.</p>
-      <figure class="support-qr">
-        <img src="assets/support/promptpay-qr.png" alt="PromptPay QR code for supporting NATTAPON BUILDS" />
-        <figcaption>Scan with a supported Thai banking app</figcaption>
-      </figure>
-      <p class="paper-type">YOUR SUPPORT HELPS WITH</p>
-      <ul><li>Hosting and infrastructure</li><li>Experiments and prototypes</li><li>Future public projects</li></ul>
-      <p class="support-thanks">Thank you for helping the next idea get built.</p>
+      <h2 id="support-title">Fuel the next build.</h2>
+      <p id="support-description">If something I built was useful, interesting, or worth exploring further, you can help keep the next experiment moving.</p>
+      <div class="coffee-tiers" role="group" aria-label="Choose a coffee support tier">
+        <button type="button" class="coffee-tier" data-coffee="50" aria-pressed="true"><svg viewBox="0 0 50 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g class="coffee-cup" style="--cup-delay:0ms" transform="translate(14 21)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g></svg><span class="coffee-tier-label">1 COFFEE</span><strong>฿50</strong></button>
+        <button type="button" class="coffee-tier" data-coffee="100" aria-pressed="false"><svg viewBox="0 0 50 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g class="coffee-cup" style="--cup-delay:0ms" transform="translate(2 21)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g><g class="coffee-cup" style="--cup-delay:65ms" transform="translate(26 21)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g></svg><span class="coffee-tier-label">2 COFFEES</span><strong>฿100</strong></button>
+        <button type="button" class="coffee-tier" data-coffee="200" aria-pressed="false"><svg viewBox="0 0 50 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g class="coffee-cup" style="--cup-delay:0ms" transform="translate(2 13)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g><g class="coffee-cup" style="--cup-delay:65ms" transform="translate(26 13)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g><g class="coffee-cup" style="--cup-delay:130ms" transform="translate(2 32)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g><g class="coffee-cup" style="--cup-delay:195ms" transform="translate(26 32)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g></svg><span class="coffee-tier-label">4 COFFEES</span><strong>฿200</strong></button>
+        <button type="button" class="coffee-tier" data-coffee="custom" aria-pressed="false"><svg viewBox="0 0 50 52" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g class="coffee-cup" style="--cup-delay:0ms" transform="translate(14 21)"><path d="M1 0h15v9a6 6 0 0 1-6 6H7a6 6 0 0 1-6-6Z"/><path d="M16 2h2a4 4 0 0 1 0 8h-2M0 17h18"/><path class="coffee-steam" d="M5-3c-3-3 3-4 0-7m6 7c-3-3 3-4 0-7"/></g><path class="coffee-spark" d="M39 7v8m-4-4h8"/></svg><span class="coffee-tier-label">CUSTOM</span><strong>Any amount</strong></button>
+      </div>
+      <div hidden id="coffeeQrLabels">
+        <span data-qr-alt="50">PromptPay QR for a ฿50 coffee support</span>
+        <span data-qr-alt="100">PromptPay QR for a ฿100 coffee support</span>
+        <span data-qr-alt="200">PromptPay QR for a ฿200 coffee support</span>
+        <span data-qr-alt="custom">PromptPay QR for a custom support amount</span>
+        <span data-qr-amount="50">฿50</span>
+        <span data-qr-amount="100">฿100</span>
+        <span data-qr-amount="200">฿200</span>
+        <span data-qr-amount="custom">Enter any amount in your banking app</span>
+      </div>
+      <div class="coffee-payment" id="coffeePayment">
+        <p class="coffee-amount" id="coffeeAmount"></p>
+        <div class="coffee-qr-frame">
+          <img id="coffeeQr" alt="PromptPay QR for the selected coffee support tier" hidden />
+          <p id="coffeePlaceholder">QR ready after final payment setup</p>
+        </div>
+        <p class="coffee-scan">Scan with your Thai banking app</p>
+        <p class="coffee-recurring">No subscription. No recurring payment.</p>
+      </div>
+      <div class="coffee-finish">
+        <button type="button" class="coffee-supported" id="coffeeSupported" aria-controls="coffeeThanks">I've supported ☕</button>
+        <div class="coffee-thanks" id="coffeeThanks" role="status" aria-live="polite" aria-atomic="true">
+          <div hidden id="coffeeThanksMessage"><strong>Thank you!</strong><p>This coffee helps keep the next experiment moving. ♡</p></div>
+        </div>
+        <div class="coffee-celebration" aria-hidden="true"></div>
+      </div>
     </div>
   </dialog>
-  <script type="module" src="app.js?v=2.3"></script>
+  <script type="module" src="app.js?v=2.4"></script>
 </body>
 </html>

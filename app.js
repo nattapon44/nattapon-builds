@@ -1,3 +1,4 @@
+import { initLanguage } from './i18n.js';
 import { initAtmospheres } from './atmospheres.js';
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -7,6 +8,13 @@ const compactQuery = matchMedia('(max-width: 900px)');
 const pointerQuery = matchMedia('(hover: hover) and (pointer: fine)');
 const scenes = $$('[data-scene]');
 const root = document.documentElement;
+// Keep anchor clearance in sync with the header across widths and languages.
+const stickyHeader = $('.site-header');
+const updateAnchorOffset = () => {
+  root.style.setProperty('--sticky-header-height', `${stickyHeader.getBoundingClientRect().height}px`);
+};
+updateAnchorOffset();
+new ResizeObserver(updateAnchorOffset).observe(stickyHeader);
 const visibleScenes = new Set();
 const rail = $('#sceneRail');
 const mobileNav = $('.mobile-nav');
@@ -239,11 +247,17 @@ supportOpen.addEventListener('click', () => {
   supportClose.focus({ preventScroll: true });
 });
 supportClose.addEventListener('click', () => supportDialog.close());
-// The close control is the dialog's only interactive element.
+// Keep keyboard focus within the dialog, including its language controls.
 supportDialog.addEventListener('keydown', event => {
   if (event.key === 'Tab') {
-    event.preventDefault();
-    supportClose.focus({ preventScroll: true });
+    const controls = [...supportDialog.querySelectorAll('button:not([disabled])')];
+    const first = controls[0];
+    const last = controls.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last.focus({ preventScroll: true });
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first.focus({ preventScroll: true });
+    }
   }
 });
 let supportBackdropPress = false;
@@ -265,5 +279,162 @@ supportDialog.addEventListener('close', () => {
   window.scrollTo({ top: supportScrollY, behavior: 'instant' });
   supportOpen.focus({ preventScroll: true });
   measureNeeded = true;
+  queueScroll();
+});
+
+
+
+// Static coffee support: each tier has its own file, never an amount-mismatched fallback.
+// Set available to true only when the exact final QR file has been supplied.
+// Pending entries make no network request, so absent files do not produce 404 noise.
+const coffeeAssets = {
+  '50': { src: 'assets/support/coffee-50.png', available: true },
+  '100': { src: 'assets/support/coffee-100.png', available: true },
+  '200': { src: 'assets/support/coffee-200.png', available: true },
+  custom: { src: 'assets/support/coffee-custom.png', available: true }
+};
+const coffeeTiers = $$('.coffee-tier');
+const coffeeQr = $('#coffeeQr');
+const coffeePlaceholder = $('#coffeePlaceholder');
+const coffeePayment = $('#coffeePayment');
+const coffeeThanks = $('#coffeeThanksMessage');
+let coffeeRequest = 0;
+let coffeeObjectUrl;
+let coffeeTimer;
+let selectedCoffee = '50';
+
+async function loadCoffeeQr(tier) {
+  const request = ++coffeeRequest;
+  coffeeQr.hidden = true;
+  coffeeQr.removeAttribute('src');
+  coffeePlaceholder.hidden = false;
+  if (coffeeObjectUrl) { URL.revokeObjectURL(coffeeObjectUrl); coffeeObjectUrl = null; }
+  if (!coffeeAssets[tier].available) return;
+  try {
+    const response = await fetch(coffeeAssets[tier].src, { cache: 'no-store' });
+    // Missing static routes may return HTML on the host; never show that as a QR.
+    if (!response.ok || !response.headers.get('content-type')?.startsWith('image/')) return;
+    const blob = await response.blob();
+    if (request !== coffeeRequest) return;
+    const url = URL.createObjectURL(blob);
+    coffeeObjectUrl = url;
+    coffeeQr.src = url;
+    await coffeeQr.decode();
+    if (request !== coffeeRequest) return;
+    coffeeQr.hidden = false;
+    coffeePlaceholder.hidden = true;
+  } catch { /* Missing, invalid, or offline assets remain a neutral placeholder. */ }
+}
+function selectCoffee(tier, animate = true) {
+  selectedCoffee = tier;
+  updateCoffeeLabels();
+  coffeeTiers.forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.coffee === tier));
+    button.classList.remove('coffee-react');
+  });
+  coffeeThanks.hidden = true;
+  coffeePayment.classList.remove('is-thanked');
+  clearCoffeeCelebration();
+  const selected = coffeeTiers.find(button => button.dataset.coffee === tier);
+  if (animate && !motionQuery.matches) {
+    void selected.offsetWidth;
+    selected.classList.add('coffee-react');
+  }
+  loadCoffeeQr(tier);
+}
+coffeeTiers.forEach((button, index) => {
+  button.addEventListener('click', () => selectCoffee(button.dataset.coffee));
+  button.addEventListener('keydown', event => {
+    const direction = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+    if (!direction && !['Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? coffeeTiers.length - 1 : (index + direction + coffeeTiers.length) % coffeeTiers.length;
+    coffeeTiers[next].focus({ preventScroll: true });
+    selectCoffee(coffeeTiers[next].dataset.coffee);
+  });
+});
+supportOpen.addEventListener('click', () => selectCoffee(selectedCoffee, false));
+supportDialog.addEventListener('close', () => {
+  coffeeRequest++;
+  clearCoffeeCelebration();
+});
+const coffeeLayer = $('.coffee-celebration');
+supportDialog.append(coffeeLayer);
+let coffeeThanksAnimation;
+function clearCoffeeCelebration() {
+  clearTimeout(coffeeTimer);
+  coffeeLayer.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+  coffeeLayer.replaceChildren();
+  coffeeThanksAnimation?.cancel();
+}
+function positionCoffeeLayer() {
+  const rect = supportDialog.getBoundingClientRect();
+  Object.assign(coffeeLayer.style, {
+    left: `${rect.left}px`, top: `${rect.top}px`,
+    width: `${rect.width}px`, height: `${rect.height}px`
+  });
+
+}
+function celebrateCoffee() {
+  clearCoffeeCelebration();
+  positionCoffeeLayer();
+  const reduced = motionQuery.matches;
+  const small = innerWidth <= 600;
+  const count = reduced ? 4 : small ? 14 : 21;
+  const layerRect = coffeeLayer.getBoundingClientRect();
+  const buttonRect = $('#coffeeSupported').getBoundingClientRect();
+  const originX = buttonRect.left + buttonRect.width / 2 - layerRect.left;
+  const originY = buttonRect.top - layerRect.top;
+  for (let index = 0; index < count; index++) {
+    const cup = document.createElement('span');
+    cup.className = 'coffee-rain-cup';
+    cup.textContent = '☕';
+    const nearButton = reduced;
+    const size = reduced ? 20 : 18 + Math.random() * (small ? 10 : 16);
+    const x = nearButton ? originX + (index - (reduced ? 1.5 : 1)) * 30 : (index + Math.random()) / count * (layerRect.width - 40) + 20;
+    const y = nearButton ? Math.max(16,Math.min(layerRect.height - 45,originY - 26)) : -40;
+    Object.assign(cup.style, { left: `${Math.max(8,Math.min(layerRect.width - size - 8,x))}px`, top: `${y}px`, fontSize: `${size}px` });
+    coffeeLayer.append(cup);
+    const rotation = Math.random() * 36 - 18;
+    const drift = Math.random() * 32 - 16;
+    const distance = nearButton ? Math.min(100,layerRect.height - y + 20) : layerRect.height + 70;
+    const transform = (progress, scale = 1) => `translate(${drift * progress}px,${distance * progress}px) rotate(${rotation}deg) scale(${scale})`;
+    const frames = reduced
+      ? [{ opacity: 0 }, { opacity: .7, offset: .2 }, { opacity: .7, offset: .7 }, { opacity: 0 }]
+      : [{ opacity: 0, transform: transform(0) }, { opacity: .65 + Math.random() * .2, transform: transform(.08), offset: .16 }, { opacity: .6, transform: transform(.78), offset: .8 }, { opacity: 0, transform: transform(1,.9) }];
+    const animation = cup.animate(frames, {
+      duration: reduced ? 1600 : 1800 + Math.random() * 600,
+      delay: reduced ? index * 60 : index / (count - 1) * 400,
+      easing: reduced ? 'ease' : 'cubic-bezier(.32,.05,.65,.85)', fill: 'both'
+    });
+    animation.finished.then(() => cup.remove()).catch(() => cup.remove());
+  }
+  coffeeThanksAnimation = coffeeThanks.animate(
+    reduced ? [{ opacity: 0 }, { opacity: 1 }] : [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'translateY(0)' }],
+    { duration: 320, easing: 'ease-out' }
+  );
+  coffeeTimer = setTimeout(clearCoffeeCelebration, 3000);
+}
+addEventListener('resize', clearCoffeeCelebration);
+supportDialog.addEventListener('scroll', () => { if (coffeeLayer.childElementCount) positionCoffeeLayer(); }, { passive: true });
+motionQuery.addEventListener('change', clearCoffeeCelebration);
+$('#coffeeSupported').addEventListener('click', () => {
+  // Decorative acknowledgement only; no transaction verification.
+  coffeeThanks.hidden = false;
+  coffeePayment.classList.add('is-thanked');
+  celebrateCoffee();
+});
+
+function updateCoffeeLabels() {
+  coffeeQr.alt = document.querySelector(`[data-qr-alt="${selectedCoffee}"]`).textContent;
+  document.querySelector('#coffeeAmount').textContent = document.querySelector(`[data-qr-amount="${selectedCoffee}"]`).textContent;
+}
+initLanguage(() => {
+  updateCoffeeLabels();
+  // Re-measure translated text without recreating scenes or resetting reveals.
+  $$('.scene-rail a').forEach((link, index) => link.setAttribute('aria-label', scenes[index].dataset.nav));
+  nowViewing.textContent = (scenes[activeIndex] || scenes[0]).dataset.nav.toUpperCase();
+  measureNeeded = true;
+  targetGeometryDirty = true;
   queueScroll();
 });

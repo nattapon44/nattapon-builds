@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600&display=swap");
+
 /* NATTAPON BUILDS — native scrolling, distinct worlds, restrained motion. */
 :root {
   --bg: #07111f;
@@ -491,7 +493,7 @@ body.page-hidden *, body.page-hidden *::before, body.page-hidden *::after { anim
 .support-dialog { --focus-color: #665020; width: min(560px,calc(100% - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 1px solid #bbb4a5; border-radius: 16px; background: #efece4; color: #171717; overflow-y: auto; overscroll-behavior: contain; }
 .support-dialog::backdrop { background: rgba(3,6,11,.78); }
 .support-panel { padding: clamp(20px,5vw,36px); }
-.support-close { display: block; margin: -8px -8px 12px auto; min-height: 44px; padding: 8px 12px; border: 1px solid #bbb4a5; border-radius: 8px; background: #efece4; color: #171717; font: inherit; cursor: pointer; position: sticky; top: 8px; z-index: 1; }
+.support-close { display: block; margin: -8px -8px 12px auto; min-height: 44px; padding: 8px 12px; border: 1px solid #bbb4a5; border-radius: 8px; background: #efece4; color: #171717; font: inherit; cursor: pointer; position: sticky; top: 8px; z-index: 1001; }
 .support-dialog .paper-type { color: #665731; font-size: .67rem; letter-spacing: .13em; }
 .support-dialog h2 { margin: .4em 0; font-family: Georgia,serif; font-weight: 400; font-size: clamp(1.9rem,5vw,2.7rem); line-height: 1.12; }
 .support-dialog p, .support-dialog li { line-height: 1.65; }
@@ -506,3 +508,123 @@ body.page-hidden *, body.page-hidden *::before, body.page-hidden *::after { anim
   .support-qr { margin: 28px 0; }
   .support-qr img { width: min(100%,320px); }
 }
+
+/* Shared language controls; Thai needs natural spacing and taller line boxes. */
+.site-header { grid-template-columns: 1fr auto auto auto; }
+.language-switch { display: inline-flex; gap: 2px; align-items: center; justify-self: end; }
+.language-switch button { min-width: 40px; min-height: 44px; padding: 6px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: inherit; font: inherit; font-size: .75rem; cursor: pointer; }
+.language-switch button[aria-pressed="true"] { border-color: currentColor; font-weight: 700; }
+html[lang="th"] { overflow-anchor: none; }
+html[lang="th"] :is(h1,h2,h3,blockquote,.section-kicker,.eyebrow,.project-label,.paper-type,.closing-kicker,.now-viewing,footer) { letter-spacing: normal; line-height: 1.4; }
+html[lang="th"] :is(.hero h1,.section-title h2,.quote-wrap blockquote,.closing blockquote) { font-size: clamp(2.4rem,6vw,6rem); }
+html[lang="th"] :is(p,a,button,span,strong) { overflow-wrap: anywhere; }
+@media (max-width: 900px) {
+  .site-header { grid-template-columns: minmax(0,1fr) auto auto; gap: 4px 12px; }
+  .site-header > .language-switch { grid-column: 2; grid-row: 1; }
+  .site-header > .resume-link { grid-column: 1; grid-row: 2; justify-self: start; min-height: 32px; }
+  .site-header > .mobile-nav { grid-column: 3; grid-row: 1; }
+  .language-switch button { min-width: 34px; }
+  html { scroll-padding-top: 120px; }
+  .hero { padding-top: 145px; }
+}
+@media (max-width: 600px) {
+  html[lang="th"] :is(.hero h1,.section-title h2,.quote-wrap blockquote,.closing blockquote) { font-size: clamp(2rem,9vw,3.4rem); }
+  html[lang="th"] .research .section-title h2 { font-size: 9vw; }
+}
+
+/* Thai editorial typography; English keeps its existing display faces. */
+:lang(th) { font-family: "Anuphan", "Noto Sans Thai", system-ui, sans-serif; }
+html[lang="th"] body { font-weight: 400; line-height: 1.75; }
+html[lang="th"] :is(h1,h2,h3,blockquote,.paper h3,.support-dialog h2) { font-family: "Anuphan", "Noto Sans Thai", system-ui, sans-serif; font-weight: 600; line-height: 1.45; letter-spacing: normal; text-wrap: balance; }
+html[lang="th"] :is(p,li,.timeline span) { line-height: 1.75; }
+html[lang="th"] :is(.nav,.mobile-nav,.btn,.section-kicker,.eyebrow,.project-label,.paper-type,.closing-kicker,.hero-meta,.build-flow,.now-viewing,footer,.future-row b) { font-weight: 500; letter-spacing: normal; text-transform: none; }
+html[lang="th"] :is(.hero h1 em,blockquote em) { font-style: normal; }
+html[lang="th"] :is(a,button,.paper-meta span,.tags span) { line-height: 1.65; letter-spacing: normal; }
+html[lang="th"] :is(h1,h2,h3,p,a,button,span,strong) { word-break: normal; overflow-wrap: break-word; }
+html[lang="th"] .language-switch button[aria-pressed="true"] { font-weight: 600; }
+
+/* Use measured header clearance once, without stacking root scroll padding. */
+html { scroll-padding-top: 0; }
+main > section[id] { scroll-margin-top: calc(var(--sticky-header-height, 100px) + 20px); }
+html[lang="th"] :is(.hero h1,.quote-wrap blockquote,.closing blockquote,.research .section-title h2,.future .section-title h2) { font-weight: 500; }
+html[lang="th"] .research .section-title h2 { white-space: pre-line; }
+html[lang="th"] .project h3 { word-break: normal; overflow-wrap: normal; }
+html[lang="th"] #pocketflow h3 { white-space: nowrap; font-size: clamp(1.75rem,4.5vw,4.5rem); }
+@media (max-width: 900px) {
+  html[lang="th"] #pocketflow h3 { font-size: 9vw; }
+}
+
+/* Research Support uses the portfolio button system on its cream surface. */
+.research-service-cta { background: #142235; color: #f8f5ed; }
+@media (hover: hover) and (pointer: fine) {
+  .research-service-cta:hover { background: #283d55; }
+}
+
+.research-service-cta { border-radius: 10px; transition: background-color .2s ease, transform .2s ease; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .research-service-cta:hover { transform: translateY(-2px); }
+}
+
+/* Coffee corner: static tier-specific QR assets, optional quiet motion. */
+.coffee-tiers { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin: 28px 0; }
+.coffee-tier { min-width: 0; min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 14px 8px; background: #f7f3eb; border: 1px solid #bfb39a; border-radius: 10px; color: #223145; cursor: pointer; transition: background-color .25s ease,border-color .25s ease,box-shadow .25s ease; }
+.coffee-tier[aria-pressed="true"] { background: #e9e1d0; border: 2px solid #76623c; padding: 13px 7px; box-shadow: 0 2px 8px rgba(70,50,20,.08); }
+.coffee-tier svg { width: 56px; height: 56px; color: #79633a; overflow: visible; }
+.coffee-tier-label { font-size: .72rem; font-weight: 500; letter-spacing: .05em; }
+.coffee-tier strong { font-size: 1rem; font-weight: 600; }
+.coffee-payment { border-top: 1px solid #bbb4a5; padding-top: 24px; text-align: center; transition: opacity .3s ease; }
+
+.coffee-qr-frame { width: min(100%,320px); min-height: 320px; margin: auto; display: grid; place-items: center; background: #f9f6ef; border: 1px solid #ccc2af; border-radius: 8px; padding: 16px; }
+.coffee-qr-frame img { width: 100%; height: auto; object-fit: contain; background: white; }
+.coffee-qr-frame [hidden], .coffee-thanks [hidden] { display: none; }
+#coffeePlaceholder { max-width: 230px; color: #665731; font-size: .95rem; line-height: 1.7; padding: 20px 8px; }
+.coffee-scan { font-size: .85rem; margin: 16px 0 4px; }
+.coffee-recurring { font-size: .78rem; color: #52504b; margin: 0; }
+.coffee-finish { position: relative; text-align: center; margin-top: 24px; }
+.coffee-supported { min-height: 44px; padding: 10px 20px; border: 1px solid #8f7b54; border-radius: 8px; background: transparent; color: #233247; cursor: pointer; }
+.coffee-thanks { min-height: 100px; padding-top: 20px; color: #263447; }
+.coffee-thanks strong { font-family: Georgia,serif; font-size: 1.6rem; font-weight: 400; }
+.coffee-thanks p { margin: 8px 0 0; font-size: .9rem; }
+html[lang="th"] .coffee-thanks strong { font-family: "Anuphan", "Noto Sans Thai", system-ui,sans-serif; font-weight: 500; }
+
+@media (hover: hover) and (pointer: fine) {
+ .coffee-tier:hover { border-color: #76623c; background-color: #eee6d8; }
+ .coffee-supported:hover { background: #e9e1d0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+ .coffee-react .coffee-cup { animation: coffee-lift 350ms ease var(--cup-delay) both; }
+ .coffee-react .coffee-steam { animation: coffee-steam 400ms ease var(--cup-delay) both; }
+ .coffee-react .coffee-spark { animation: coffee-steam 450ms ease both; }
+}
+@keyframes coffee-lift { 50% { translate: 0 -2px; } }
+@keyframes coffee-steam { 0% { opacity: .25; } 65% { opacity: .8; translate: 0 -3px; } 100% { opacity: 1; translate: 0 0; } }
+@media (max-width: 600px) {
+ .coffee-tiers { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin: 20px 0; }
+ .coffee-tier { min-height: 140px; }
+ .coffee-qr-frame { min-height: 260px; padding: 12px; }
+ .coffee-tier-label { letter-spacing: normal; }
+}
+@media (prefers-reduced-motion: reduce) {
+
+ .coffee-cup,.coffee-steam,.coffee-spark { animation: none !important; translate: none !important; }
+}
+
+.coffee-qr-frame { height: 360px; min-height: 0; grid-template-columns: minmax(0,1fr); grid-template-rows: minmax(0,1fr); }
+.coffee-qr-frame img { height: 100%; max-height: 100%; min-height: 0; }
+@media (max-width: 600px) { .coffee-qr-frame { height: 300px; min-height: 0; } }
+@media (max-width: 600px) { html[lang="th"] #support-title { font-size: clamp(1.5rem,6.5vw,2rem); text-wrap: balance; } }
+
+/* The coffee intro shares the top row with its close control. */
+.support-close { float: right; margin: -8px -8px 12px 16px; }
+.support-panel > .paper-type { margin-top: 0; padding-top: 4px; }
+#support-title { clear: both; }
+
+/* Original bank cards stay fully opaque and retain their intrinsic aspect ratio. */
+.coffee-amount { margin: 0 0 16px; font-weight: 600; color: #223145; }
+.coffee-qr-frame { width: min(100%,352px); height: auto; min-height: 320px; grid-template-rows: auto; }
+.coffee-qr-frame img { width: 100%; height: auto; max-height: none; opacity: 1; filter: none; object-fit: contain; }
+
+/* Temporary coffee cascade lives in the dialog top layer, above its content. */
+.coffee-celebration { position: fixed; inset: 0 auto auto 0; z-index: 1000; pointer-events: none; overflow: hidden; border-radius: 16px; }
+.coffee-rain-cup { position: absolute; display: block; line-height: 1; opacity: 0; font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif; user-select: none; pointer-events: none; }
+@media (max-width: 600px) { .coffee-thanks { min-height: 140px; } }

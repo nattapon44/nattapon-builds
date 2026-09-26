@@ -1,15 +1,17 @@
 # NATTAPON BUILDS backlog
 
-## Current support feature
+## Coffee Support Experience — COMPLETE
 
-Support the Next Build opens an accessible native dialog using the supplied, unchanged `assets/support/promptpay-qr.png`. Static QR only: no payment API, identifiers in code, verification, backend, or transaction records. Focused browser checks passed at 1440px, 390px, and 320px. A real banking-app scan remains a manual check. Nothing committed, pushed, or deployed.
+Implemented locally for production review. The accessible Coffee Support dialog inherits the portfolio's persisted TH/EN language. Four tiers use the unchanged `assets/support/coffee-50.png`, `coffee-100.png`, `coffee-200.png`, and `coffee-custom.png` cards. The support acknowledgement triggers a restrained coffee celebration and thank-you message; reduced motion uses a small fade-only acknowledgement. This remains client-side: no payment API, verification, backend, or transaction records. The user confirmed successful real Thai banking-app scans for all four original QR cards. Nothing committed, pushed, or deployed.
 
-## Next: Applied Statistics & Research Support — Dedicated Service Page
+International/card support via Stripe — FUTURE / DEFERRED.
+
+## Applied Statistics & Research Support — Dedicated Service Page
 
 **DESIGN APPROVED**  
-**IMPLEMENTATION DEFERRED TO NEXT DEVELOPMENT SESSION**
+**IMPLEMENTED LOCALLY — NOT DEPLOYED**
 
-Build a real website landing page, not a poster or infographic. Replace the existing research-support mailto CTA with a link to this page during that implementation; keep the current interaction until then. Contact options are still to be finalized.
+Implemented at `/research-support/` with shared TH/EN preference, packages, comparison, add-ons, workflow, service notes, and visible/copyable existing email contact. The main portfolio CTA now links to this page. Coffee Support Experience is now complete locally; see the status above.
 
 ### Visual direction
 
